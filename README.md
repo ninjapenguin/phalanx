@@ -31,3 +31,15 @@ Download one liner:
 ```bash
 git clone https://github.com/ninjapenguin/phalanx.git
 ````
+
+## Dependencies
+
+[30log] (https://github.com/Yonaba/30log)
+```bash
+luarocks install --server=http://rocks.moonscript.org/manifests/Yonaba 30log
+```
+
+[Penlight] (http://stevedonovan.github.io/Penlight/api/index.html)
+```bash
+luarocks install --server=http://rocks.moonscript.org moonrocks
+```

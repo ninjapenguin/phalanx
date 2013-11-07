@@ -1,4 +1,4 @@
-local class = require('lib.30log')
+local class = require('30log')
 
 local route = class()
 route.__name = 'route'

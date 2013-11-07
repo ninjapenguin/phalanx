@@ -1,4 +1,4 @@
-local class = require('lib.30log')
+local class = require('30log')
 
 local request = class()
 request.__name = 'request'
@@ -8,13 +8,13 @@ function request:__init(context)
 end
 
 function request:post()
-	ngx.req.read_body()
-	return ngx.req.get_body_data()
+	self.context.req.read_body()
+	return self.context.req.get_body_data()
 end
 
 function request:redirect( url )
-	local url = url or ngx.var.request_uri
-	ngx.redirect( url )
+	local url = url or self.context.var.request_uri
+	self.context.redirect( url )
 end
 
 return request
