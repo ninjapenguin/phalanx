@@ -79,13 +79,8 @@ http {
 local app_router = require("phalanx.router"):new()
 local route = require("phalanx.route")
 
-local page = require("phalanx.controller"):extends()
-function page:get()
-    self.response:body("Hello World")
-end
-
 app_router:add(
-    'user', route:new('^/', page)
+    'welcome', route:new('^/', require("controller.welcome"))
 )
 
 ngx.say(
@@ -96,10 +91,23 @@ ngx.say(
 )
 ```
 
+### controller/welcome.lua
+
+```lua
+local page = require("phalanx.controller"):extends()
+function page:get()
+    self.response:body("Hello World")
+end
+
+return page
+```
+
 ### Files
 
 ```
 ├── lua
+│   ├── controller
+│   │   └── welcome.lua
 │   └── index.lua
 └── public
     └── test.html
