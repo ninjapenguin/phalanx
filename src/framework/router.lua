@@ -25,8 +25,8 @@ function router:route()
     table.remove(rets, 1)
 
     if start ~= nil then
-      local request = require('phalanx.framework.request'):new()
-      local response = require('phalanx.framework.response'):new()
+      local request = require('phalanx.request'):new()
+      local response = require('phalanx.response'):new()
 
       local callback = route_object:get_callback():new(request, response)
 

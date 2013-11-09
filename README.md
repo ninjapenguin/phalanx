@@ -32,6 +32,79 @@ Download one liner:
 git clone https://github.com/ninjapenguin/phalanx.git && cd phalanx && luarocks make
 ````
 
+## Examples
+
+The below is an example of a simple phalanx site setup
+
+### nginx.conf
+
+```nginx
+worker_processes 4;
+
+events {
+   worker_connections 1024;
+}
+
+http {
+
+    lua_package_path "/web/root/sites/phalanx/lua/?.lua;;";
+
+    include       mime.types;
+    sendfile on;
+
+    server {
+      lua_code_cache off;
+      listen 80;
+      server_name phalanx.dev;
+
+      root /web/root/sites/phalanx/public;
+
+      access_log /var/log/nginx/access_phalanx.log;
+      error_log /var/log/nginx/error_phalanx.log debug;
+
+      location / {
+        try_files $uri @framework;
+      }
+
+      location @framework {
+        content_by_lua_file '/web/root/sites/phalanx/lua/index.lua';
+      }
+    }
+}
+```
+
+### phalanx.lua
+
+```lua
+local app_router = require("phalanx.router"):new()
+local route = require("phalanx.route")
+
+local page = require("phalanx.controller"):extends()
+function page:get()
+    self.response:body("Hello World")
+end
+
+app_router:add(
+    'user', route:new('^/', page)
+)
+
+ngx.say(
+    app_router
+    :route()
+    :send_headers()
+    :body()
+)
+```
+
+### Files
+
+```
+├── lua
+│   └── index.lua
+└── public
+    └── test.html
+```
+
 ## Dependencies
 
 The below rocks are dependencies (these will be auto installed for you with the above command)
