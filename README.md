@@ -1,4 +1,4 @@
-# Phalanx
+# Phalanx [![Build Status](https://travis-ci.org/ninjapenguin/phalanx.png?branch=master)](https://travis-ci.org/ninjapenguin/phalanx)
 
 A micro framework for nginx-lua currently primarily aimed at producing lightweight, high throughput api's
 
