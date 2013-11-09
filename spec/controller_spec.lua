@@ -1,6 +1,6 @@
 local controller = require "src.framework.controller"
 
-describe("Busted unit testing framework", function()
+describe("Phalanx controller", function()
     it("should accept and return the request object", function()
         req = {tree = "green"}
         resp = {car = "blue"}

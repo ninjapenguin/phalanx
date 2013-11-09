@@ -3,21 +3,21 @@ local class = require('30log')
 local response = class()
 response.__name = 'response'
 
-response.headers = {
-	['content-type'] = 'text/html'
-}
-
-function response:__init()
+function response:__init(context)
+	self.context = context or ngx
 	self.body_content = nil
+	self.headers = {
+		['content-type'] = 'text/html'
+	}
 end
 
 function response:set_header(header, value)
-	response.headers[header] = value
+	self.headers[header] = value
 end
 
 function response:send_headers()
 	for name,value in pairs(self.headers) do
-		ngx.header[name] = value
+		self.context.header[name] = value
 	end
 	return self
 end
