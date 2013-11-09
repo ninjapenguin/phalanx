@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Phalanx by ninjapenguin</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/ninjapenguin/phalanx">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/ninjapenguin/phalanx/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/ninjapenguin/phalanx/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Phalanx</h1>
+          <p>Lua-Nginx micro framework</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/ninjapenguin">ninjapenguin</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="phalanx-" class="anchor" href="#phalanx-"><span class="octicon octicon-link"></span></a>Phalanx <a href="https://travis-ci.org/ninjapenguin/phalanx"><img src="https://travis-ci.org/ninjapenguin/phalanx.png?branch=master" alt="Build Status"></a>
+</h1>
+
+<p>A micro framework for nginx-lua currently primarily aimed at producing lightweight, high throughput api's</p>
+
+<h2>
+<a name="tldr" class="anchor" href="#tldr"><span class="octicon octicon-link"></span></a>TL;DR;</h2>
+
+<div class="highlight highlight-Lua"><pre><span class="kd">local</span> <span class="n">app_router</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">phalanx.router"</span><span class="p">):</span><span class="n">new</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">route</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">phalanx.route"</span><span class="p">)</span>
+
+<span class="n">app_router</span><span class="p">:</span><span class="n">add</span><span class="p">(</span>
+    <span class="s1">'</span><span class="s">book'</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="s1">'</span><span class="s">^/book/(%w+)'</span><span class="p">,</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">myapp.controller.book"</span><span class="p">))</span>
+<span class="p">)</span>
+
+<span class="n">app_router</span><span class="p">:</span><span class="n">add</span><span class="p">(</span>
+    <span class="s1">'</span><span class="s">user'</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="s1">'</span><span class="s">^/user'</span><span class="p">,</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">myapp.controller.user"</span><span class="p">))</span>
+<span class="p">)</span>
+
+<span class="n">ngx</span><span class="p">.</span><span class="n">say</span><span class="p">(</span>
+    <span class="n">app_router</span>
+    <span class="p">:</span><span class="n">route</span><span class="p">()</span>
+    <span class="p">:</span><span class="n">send_headers</span><span class="p">()</span>
+    <span class="p">:</span><span class="n">body</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Download one liner:</p>
+
+<div class="highlight highlight-bash"><pre>git clone https://github.com/ninjapenguin/phalanx.git <span class="o">&amp;&amp;</span> <span class="nb">cd </span>phalanx <span class="o">&amp;&amp;</span> luarocks make
+</pre></div>
+
+<h2>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+
+<p>The below is an example of a simple phalanx site setup</p>
+
+<h3>
+<a name="nginxconf" class="anchor" href="#nginxconf"><span class="octicon octicon-link"></span></a>nginx.conf</h3>
+
+<div class="highlight highlight-nginx"><pre><span class="k">worker_processes</span> <span class="mi">4</span><span class="p">;</span>
+
+<span class="k">events</span> <span class="p">{</span>
+   <span class="kn">worker_connections</span> <span class="mi">1024</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">http</span> <span class="p">{</span>
+
+    <span class="kn">lua_package_path</span> <span class="s">"/web/root/sites/phalanx/lua/?.lua</span><span class="p">;</span>;<span class="kn">"</span><span class="p">;</span>
+
+    <span class="kn">include</span>       <span class="s">mime.types</span><span class="p">;</span>
+    <span class="kn">sendfile</span> <span class="no">on</span><span class="p">;</span>
+
+    <span class="kn">server</span> <span class="p">{</span>
+      <span class="kn">lua_code_cache</span> <span class="no">off</span><span class="p">;</span>
+      <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+      <span class="kn">server_name</span> <span class="s">phalanx.dev</span><span class="p">;</span>
+
+      <span class="kn">root</span> <span class="s">/web/root/sites/phalanx/public</span><span class="p">;</span>
+
+      <span class="kn">access_log</span> <span class="s">/var/log/nginx/access_phalanx.log</span><span class="p">;</span>
+      <span class="kn">error_log</span> <span class="s">/var/log/nginx/error_phalanx.log</span> <span class="s">debug</span><span class="p">;</span>
+
+      <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="s">@framework</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="kn">location</span> <span class="s">@framework</span> <span class="p">{</span>
+        <span class="kn">content_by_lua_file</span> <span class="s">'/web/root/sites/phalanx/lua/index.lua'</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="phalanxlua" class="anchor" href="#phalanxlua"><span class="octicon octicon-link"></span></a>phalanx.lua</h3>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">app_router</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">phalanx.router"</span><span class="p">):</span><span class="n">new</span><span class="p">()</span>
+<span class="kd">local</span> <span class="n">route</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">phalanx.route"</span><span class="p">)</span>
+
+<span class="n">app_router</span><span class="p">:</span><span class="n">add</span><span class="p">(</span>
+    <span class="s1">'</span><span class="s">welcome'</span><span class="p">,</span> <span class="n">route</span><span class="p">:</span><span class="n">new</span><span class="p">(</span><span class="s1">'</span><span class="s">^/'</span><span class="p">,</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">controller.welcome"</span><span class="p">))</span>
+<span class="p">)</span>
+
+<span class="n">ngx</span><span class="p">.</span><span class="n">say</span><span class="p">(</span>
+    <span class="n">app_router</span>
+    <span class="p">:</span><span class="n">route</span><span class="p">()</span>
+    <span class="p">:</span><span class="n">send_headers</span><span class="p">()</span>
+    <span class="p">:</span><span class="n">body</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+
+<h3>
+<a name="controllerwelcomelua" class="anchor" href="#controllerwelcomelua"><span class="octicon octicon-link"></span></a>controller/welcome.lua</h3>
+
+<div class="highlight highlight-lua"><pre><span class="kd">local</span> <span class="n">page</span> <span class="o">=</span> <span class="nb">require</span><span class="p">(</span><span class="s2">"</span><span class="s">phalanx.controller"</span><span class="p">):</span><span class="n">extends</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">page</span><span class="p">:</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">self</span><span class="p">.</span><span class="n">response</span><span class="p">:</span><span class="n">body</span><span class="p">(</span><span class="s2">"</span><span class="s">Hello World"</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">return</span> <span class="n">page</span>
+</pre></div>
+
+<h3>
+<a name="files" class="anchor" href="#files"><span class="octicon octicon-link"></span></a>Files</h3>
+
+<pre><code>├── lua
+│   ├── controller
+│   │   └── welcome.lua
+│   └── index.lua
+└── public
+    └── test.html
+</code></pre>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>The below rocks are dependencies (these will be auto installed for you with the above command)</p>
+
+<p><a href="https://github.com/Yonaba/30log">30log</a></p>
+
+<div class="highlight highlight-bash"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org/manifests/Yonaba 30log
+</pre></div>
+
+<p><a href="http://stevedonovan.github.io/Penlight/api/index.html">Penlight</a></p>
+
+<div class="highlight highlight-bash"><pre>luarocks install --server<span class="o">=</span>http://rocks.moonscript.org moonrocks
+</pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
