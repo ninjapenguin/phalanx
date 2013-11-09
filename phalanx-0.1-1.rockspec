@@ -20,10 +20,10 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      ["framework.controller"] = "src/framework/controller.lua",
-      ["framework.request"] = "src/framework/request.lua",
-      ["framework.response"] = "src/framework/response.lua",
-      ["framework.route"] = "src/framework/route.lua",
-      ["framework.router"] = "src/framework/router.lua",
+      ["phalanx.controller"] = "src/framework/controller.lua",
+      ["phalanx.request"] = "src/framework/request.lua",
+      ["phalanx.response"] = "src/framework/response.lua",
+      ["phalanx.route"] = "src/framework/route.lua",
+      ["phalanx.router"] = "src/framework/router.lua",
    }
 }
