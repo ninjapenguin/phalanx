@@ -1,0 +1,23 @@
+language: erlang
+
+env:
+  - LUA="luajit-2.0.0-beta9"
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq git luajit luarocks libev-dev make
+  - sudo ln -s /usr/bin/luajit-2.0.0-beta9 /usr/bin/luajit
+  - sudo luarocks install busted
+
+script: "busted spec"
+
+notifications:
+  recipients:
+    - matt@ninjapenguin.co.uk
+  email:
+    on_success: always
+    on_failure: always
+
+branches:
+  except:
+    - gh-pages
