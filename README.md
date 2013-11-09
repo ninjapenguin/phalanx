@@ -5,15 +5,15 @@ A micro framework for nginx-lua currently primarily aimed at producing lightweig
 ## TL;DR;
 
 ```Lua
-local app_router = require("phalanx.framework.router"):new()
-local route = require("phalanx.framework.route")
+local app_router = require("phalanx.router"):new()
+local route = require("phalanx.route")
 
 app_router:add(
 	'book', route:new('^/book/(%w+)', require("myapp.controller.book"))
 )
 
 app_router:add(
-	'user', route:new('^/user', require("phgdb.controller.user"))
+	'user', route:new('^/user', require("myapp.controller.user"))
 )
 
 ngx.say(
