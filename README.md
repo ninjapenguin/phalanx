@@ -29,10 +29,12 @@ ngx.say(
 Download one liner:
 
 ```bash
-git clone https://github.com/ninjapenguin/phalanx.git
+git clone https://github.com/ninjapenguin/phalanx.git && cd phalanx && luarocks make
 ````
 
 ## Dependencies
+
+The below rocks are dependencies (these will be auto installed for you with the above command)
 
 [30log] (https://github.com/Yonaba/30log)
 ```bash
