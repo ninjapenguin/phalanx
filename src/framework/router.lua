@@ -1,4 +1,4 @@
-local class = require('l30log')
+local class = require('30log')
 local map = require('pl.OrderedMap')
 
 local router = class()

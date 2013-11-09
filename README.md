@@ -24,7 +24,7 @@ ngx.say(
 )
 ```
 
-## Download
+## Install
 
 Download one liner:
 

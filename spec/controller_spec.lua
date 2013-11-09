@@ -6,7 +6,7 @@ describe("Phalanx controller", function()
         resp = {car = "blue"}
         c = controller:new(req, resp)
 
-        assert.are.same(req, c:request())
+        assert.are.same(req, c.request)
     end)
 
     it("should accept and return the response object", function()
@@ -14,6 +14,6 @@ describe("Phalanx controller", function()
         resp = {car = "blue"}
         c = controller:new(req, resp)
 
-        assert.are.same(resp, c:response())
+        assert.are.same(resp, c.response)
     end)
 end)
