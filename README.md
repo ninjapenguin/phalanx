@@ -73,7 +73,7 @@ http {
 }
 ```
 
-### phalanx.lua
+### index.lua
 
 ```lua
 local app_router = require("phalanx.router"):new()
@@ -115,7 +115,7 @@ return page
 
 ## Dependencies
 
-The below rocks are dependencies (these will be auto installed for you with the above command)
+The below rocks are dependencies (these will be handled for you when installing via luarocks)
 
 [30log] (https://github.com/Yonaba/30log)
 ```bash
