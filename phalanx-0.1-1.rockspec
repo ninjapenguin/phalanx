@@ -14,7 +14,6 @@ description = {
    license = "MIT <http://opensource.org/licenses/MIT>"
 }
 dependencies = {
-   "30log",
    "lua >= 5.1",
    "penlight >= 1.0.0-1",
 }
