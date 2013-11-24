@@ -5,7 +5,9 @@ env:
   - LUAROCKS_BASE=luarocks-2.1.1 LUA=luajit LUA_DEV=libluajit-5.1-dev LUA_VER=5.1 LUA_SFX=jit LUA_INCDIR=/usr/include/luajit-2.0
 
 install:
-  - sudo apt-get install luajit
+  - sudo apt-get install $LUA
+  - sudo apt-get install $LUA_DEV
+  - lua$LUA_SFX -v
   - wget http://luarocks.org/releases/$LUAROCKS_BASE.tar.gz
   - tar zxvpf $LUAROCKS_BASE.tar.gz
   - cd $LUAROCKS_BASE
