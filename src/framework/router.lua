@@ -4,8 +4,9 @@ local map = require('pl.OrderedMap')
 local router = class()
 router.__name = 'router'
 
-function router:__init()
+function router:__init(context)
   self.callbacks = map()
+  self.ngx = context or ngx
 end
 
 function router:add(name, route)
@@ -13,10 +14,10 @@ function router:add(name, route)
 end
 
 function router:route()
-  local method = ngx.var.request_method:lower()
+  local method = self.ngx.var.request_method:lower()
 
   for route_name, route_object in self.callbacks:iter() do
-    local rets = {ngx.var.request_uri:find(route_object:get_pattern())}
+    local rets = {self.ngx.var.request_uri:find(route_object:get_pattern())}
 
     local start = rets[1]
     local finish = rets[2]
@@ -36,7 +37,7 @@ function router:route()
     end
   end
 
-  ngx.exit(ngx.HTTP_NOT_FOUND)
+  self.ngx.exit(self.ngx.HTTP_NOT_FOUND)
 end
 
 return router
