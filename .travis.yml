@@ -10,7 +10,7 @@ install:
   - sudo luarocks install busted
   - sudo luarocks install 30log
 
-script: "sudo busted spec"
+script: "sudo luarocks make && sudo busted"
 
 notifications:
   recipients:
