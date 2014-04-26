@@ -16,6 +16,7 @@ description = {
 dependencies = {
    "lua >= 5.1",
    "penlight >= 1.0.0-1",
+   "30log"
 }
 build = {
    type = "builtin",
