@@ -1,4 +1,4 @@
-local controller = require "src.framework.controller"
+local controller = require "src.phalanx.controller"
 
 describe("Phalanx controller", function()
     it("should accept and return the request object", function()

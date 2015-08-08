@@ -1,4 +1,4 @@
-local response = require "src.framework.response"
+local response = require "src.phalanx.response"
 
 describe("Phalanx response object", function()
 

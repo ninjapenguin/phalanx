@@ -1,7 +1,7 @@
 package = "Phalanx"
-version = "0.2-1"
+version = "0.3-1"
 source = {
-   url = "https://github.com/ninjapenguin/phalanx/archive/0.2.tar.gz" ,
+   url = "https://github.com/ninjapenguin/phalanx/archive/0.3.tar.gz" ,
    dir = "phalanx-0.1"
 }
 description = {
@@ -21,10 +21,10 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      ["phalanx.controller"] = "src/framework/controller.lua",
-      ["phalanx.request"] = "src/framework/request.lua",
-      ["phalanx.response"] = "src/framework/response.lua",
-      ["phalanx.route"] = "src/framework/route.lua",
-      ["phalanx.router"] = "src/framework/router.lua",
+      ["phalanx.controller"] = "src/phalanx/controller.lua",
+      ["phalanx.request"] = "src/phalanx/request.lua",
+      ["phalanx.response"] = "src/phalanx/response.lua",
+      ["phalanx.route"] = "src/phalanx/route.lua",
+      ["phalanx.router"] = "src/phalanx/router.lua",
    }
 }

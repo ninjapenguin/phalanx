@@ -1,5 +1,5 @@
-local router = require "src.framework.router"
-local route = require "src.framework.route"
+local router = require "src.phalanx.router"
+local route = require "src.phalanx.route"
 
 function return_ngx_mock(route)
 
