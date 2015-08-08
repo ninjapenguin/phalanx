@@ -6,9 +6,9 @@ env:
 
 install:
   - sudo apt-get install luajit
-  - sudo apt-get install luarocks
+  - sudo apt-get install luarocks libssl1.0.0
   - sudo luarocks install busted
-  - sudo luarocks install luasec
+  - sudo luarocks install luasec OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
   - sudo luarocks install 30log
 
 script: "sudo luarocks make && sudo busted spec"
