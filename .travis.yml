@@ -8,6 +8,7 @@ install:
   - sudo apt-get install luajit
   - sudo apt-get install luarocks
   - sudo luarocks install busted
+  - sudo luarocks install luasec
   - sudo luarocks install 30log
 
 script: "sudo luarocks make && sudo busted spec"
