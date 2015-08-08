@@ -1,17 +1,20 @@
-language: erlang
+language: c
 
 env:
-  - LUA=""
-  - LUA="luajit"
+  global:
+    - LUAROCKS=2.2.0beta1
+  matrix:
+    - LUA=lua5.2
+    - LUA=luajit
+
+before_install:
+  - bash .travis/setup_lua.sh
+  - sudo luarocks install busted
 
 install:
-  - sudo apt-get install luajit
-  - sudo apt-get install luarocks libssl1.0.0
-  - sudo luarocks install busted
-  - sudo luarocks install luasec OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
-  - sudo luarocks install 30log
+  - sudo luarocks make
 
-script: "sudo luarocks make && sudo busted spec"
+script: "busted spec"
 
 notifications:
   recipients:
