@@ -8,7 +8,9 @@ env:
     - LUA=luajit
 
 before_install:
+  - sudo apt-get install libssl1.0.0
   - bash .travis/setup_lua.sh
+  - sudo luarocks install luasec OPENSSL_LIBDIR=/usr/lib/x86_64-linux-gnu
   - sudo luarocks install busted
 
 install:
