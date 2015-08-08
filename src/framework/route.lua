@@ -1,9 +1,8 @@
 local class = require('30log')
 
-local route = class()
-route.__name = 'route'
+local route = class('route')
 
-function route:__init(pattern, callback)
+function route:init(pattern, callback)
 	self.pattern = pattern
 	self.callback = callback
 end

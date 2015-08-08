@@ -1,7 +1,7 @@
 package = "Phalanx"
-version = "0.1-1"
+version = "0.2-1"
 source = {
-   url = "https://github.com/ninjapenguin/phalanx/archive/0.1.tar.gz" ,
+   url = "https://github.com/ninjapenguin/phalanx/archive/0.2.tar.gz" ,
    dir = "phalanx-0.1"
 }
 description = {
@@ -16,7 +16,7 @@ description = {
 dependencies = {
    "lua >= 5.1",
    "penlight >= 1.0.0-1",
-   "30log"
+   "30log = 1.0.0"
 }
 build = {
    type = "builtin",

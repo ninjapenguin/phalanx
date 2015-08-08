@@ -1,10 +1,9 @@
 local class = require('30log')
 local map = require('pl.OrderedMap')
 
-local router = class()
-router.__name = 'router'
+local router = class('router')
 
-function router:__init(context)
+function router:init(context)
   self.callbacks = map()
   self.ngx = context or ngx
 end
@@ -26,8 +25,8 @@ function router:route()
     table.remove(rets, 1)
 
     if start ~= nil then
-      local request = require('phalanx.request'):new()
-      local response = require('phalanx.response'):new()
+      local request = require('framework.request'):new()
+      local response = require('framework.response'):new()
 
       local callback = route_object:get_callback():new(request, response)
 

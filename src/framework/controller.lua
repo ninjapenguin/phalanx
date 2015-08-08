@@ -1,9 +1,8 @@
 class = require("30log")
 
-controller = class()
-controller.__name = 'controller'
+controller = class('controller')
 
-function controller:__init(request, response)
+function controller:init(request, response)
 	self.request = request
 	self.response = response
 end

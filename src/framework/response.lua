@@ -1,9 +1,8 @@
 local class = require('30log')
 
-local response = class()
-response.__name = 'response'
+local response = class('response')
 
-function response:__init(context)
+function response:init(context)
 	self.context = context or ngx
 	self.body_content = nil
 	self.headers = {
